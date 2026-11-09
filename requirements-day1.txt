@@ -1,0 +1,6 @@
+duckdb>=1.2,<3
+pandas>=2.2,<3
+pytest>=8,<10
+jupyterlab>=4,<5
+streamlit>=1.40,<2
+networkx>=3,<4

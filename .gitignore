@@ -1,0 +1,38 @@
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+kaggle.json
+.secrets/
+.streamlit/secrets.toml
+
+# Python and editors
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.vscode/
+.idea/
+
+#large data
+/data/raw/*
+!/data/raw/.gitkeep
+/data/processed/*
+!/data/processed/.gitkeep
+/data/evaluation/*
+!/data/evaluation/.gitkeep
+!/data/evaluation/questions.jsonl
+
+# Outputs, cache and local model indexes
+/logs/
+/results/
+/chroma_db/
+/.cache/
+*.duckdb
+*.duckdb.wal
+*.zip
+*.csv
+*.parquet

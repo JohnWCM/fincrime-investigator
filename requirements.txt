@@ -1,0 +1,12 @@
+-r requirements-day1.txt
+rank-bm25>=0.2.2,<1
+sentence-transformers>=3,<6
+chromadb>=0.6,<2
+pymupdf>=1.24,<2
+plotly>=5,<7
+pyvis>=0.3,<1
+langgraph>=0.2,<2
+langchain-core>=0.3,<2
+openai>=1.50,<3
+pydantic>=2,<3
+python-dotenv>=1,<2
