@@ -79,7 +79,7 @@ def build_corpus(raw_dir: Path = Path('data/raw/fatf'),
                  chunk_chars: int = 1000, overlap: int = 150) -> list[dict]:
     if not (200 <= chunk_chars <= 3000 and 0 <= overlap < chunk_chars):
         raise ValueError('Invalid chunk/overlap settings')
-    import fitz  # pymupdf, imported lazily
+    import pymupdf as fitz  # pymupdf, imported lazily
     chunks = []
     for doc in DOCUMENTS:
         file = raw_dir / doc['filename']

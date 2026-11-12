@@ -1,0 +1,99 @@
+{
+  "split": "dev",
+  "total_scoring_rows": 39,
+  "per_arm": {
+    "baseline": {
+      "answers_in_sheet": 10,
+      "mean_latency_seconds": 0.096,
+      "total_reported_input_tokens": null,
+      "total_reported_output_tokens": null,
+      "usd_cost": null,
+      "factual_correct": {
+        "n": 10,
+        "mean": 1.0
+      },
+      "evidence_faithful": {
+        "n": 10,
+        "mean": 1.0
+      },
+      "citation_support": {
+        "n": 0,
+        "mean": null
+      },
+      "appropriate_abstention": {
+        "n": 1,
+        "mean": 1.0
+      }
+    },
+    "rag_only": {
+      "answers_in_sheet": 5,
+      "mean_latency_seconds": 49.353,
+      "total_reported_input_tokens": 5729,
+      "total_reported_output_tokens": 999,
+      "usd_cost": null,
+      "factual_correct": {
+        "n": 5,
+        "mean": 1.0
+      },
+      "evidence_faithful": {
+        "n": 5,
+        "mean": 1.0
+      },
+      "citation_support": {
+        "n": 2,
+        "mean": 1.0
+      },
+      "appropriate_abstention": {
+        "n": 1,
+        "mean": 1.0
+      }
+    },
+    "tools_only": {
+      "answers_in_sheet": 10,
+      "mean_latency_seconds": 7.638,
+      "total_reported_input_tokens": 48923,
+      "total_reported_output_tokens": 2364,
+      "usd_cost": null,
+      "factual_correct": {
+        "n": 10,
+        "mean": 0.7
+      },
+      "evidence_faithful": {
+        "n": 8,
+        "mean": 1.0
+      },
+      "citation_support": {
+        "n": 0,
+        "mean": null
+      },
+      "appropriate_abstention": {
+        "n": 1,
+        "mean": 1.0
+      }
+    },
+    "agentic_rag": {
+      "answers_in_sheet": 14,
+      "mean_latency_seconds": 15.356,
+      "total_reported_input_tokens": 42635,
+      "total_reported_output_tokens": 3192,
+      "usd_cost": null,
+      "factual_correct": {
+        "n": 14,
+        "mean": 0.7857
+      },
+      "evidence_faithful": {
+        "n": 13,
+        "mean": 0.9231
+      },
+      "citation_support": {
+        "n": 2,
+        "mean": 0.5
+      },
+      "appropriate_abstention": {
+        "n": 1,
+        "mean": 1.0
+      }
+    }
+  },
+  "warning": "Only human-scored rows contribute to means; N/A tasks are excluded. Scores do not imply calibrated financial crime detection or population precision/recall."
+}

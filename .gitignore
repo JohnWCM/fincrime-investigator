@@ -36,3 +36,9 @@ __pycache__/
 *.zip
 *.csv
 *.parquet
+
+# Temporary backups
+*.bak
+*.py.bak
+*_before_upgrade.py
+*.before_*.py.bak

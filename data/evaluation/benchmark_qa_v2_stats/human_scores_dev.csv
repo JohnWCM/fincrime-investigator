@@ -1,0 +1,7 @@
+question_id,category,split,arm,question,answer,factual_correct_0_1,evidence_faithful_0_1,citation_support_0_1,appropriate_abstention_0_1,failure_type,review_notes
+ACC-02,account,dev,tools_only,How many incoming transactions does account 0118::811A79C40 have?,Account 0118::811A79C40 has **30 incoming transactions**.,1,,,,,
+ACC-02,account,dev,agentic_rag,How many incoming transactions does account 0118::811A79C40 have?,Account 0118::811A79C40 has **30 incoming transactions**.,1,,,,,
+ACC-03,account,dev,tools_only,How many outgoing transactions does account 021575::80491D7A0 have?,Account 021575::80491D7A0 has 6 outgoing transactions.,1,,,,,
+ACC-03,account,dev,agentic_rag,How many outgoing transactions does account 021575::80491D7A0 have?,Account 021575::80491D7A0 has **6 outgoing transactions**.,1,,,,,
+ACC-05,account,dev,tools_only,What is the latest transaction timestamp for account 0212789::804B56250?,The latest transaction timestamp for account 0212789::804B56250 is **2022-09-10 10:16:00**.,1,,,,,
+ACC-05,account,dev,agentic_rag,What is the latest transaction timestamp for account 0212789::804B56250?,The latest transaction timestamp for account 0212789::804B56250 is **2022-09-10 10:16:00**.,1,,,,,

@@ -1,0 +1,45 @@
+{
+  "split": "dev",
+  "total_questions": 9,
+  "unverified_question_ids": [],
+  "complete_annotation": true,
+  "metrics": {
+    "bm25": {
+      "predictions": 9,
+      "verified_questions_scored": 9,
+      "recall_at_5": 0.6667,
+      "mrr_at_5": 0.7222,
+      "hit_at_5": 0.7778,
+      "mean_latency_ms_warm": 2.85,
+      "median_latency_ms_warm": 2.65
+    },
+    "dense": {
+      "predictions": 9,
+      "verified_questions_scored": 9,
+      "recall_at_5": 0.6667,
+      "mrr_at_5": 0.5593,
+      "hit_at_5": 0.7778,
+      "mean_latency_ms_warm": 32.74,
+      "median_latency_ms_warm": 30.84
+    },
+    "hybrid": {
+      "predictions": 9,
+      "verified_questions_scored": 9,
+      "recall_at_5": 0.7778,
+      "mrr_at_5": 0.7444,
+      "hit_at_5": 0.8889,
+      "mean_latency_ms_warm": 39.2,
+      "median_latency_ms_warm": 37.0
+    },
+    "rerank": {
+      "predictions": 9,
+      "verified_questions_scored": 9,
+      "recall_at_5": 0.7778,
+      "mrr_at_5": 0.8333,
+      "hit_at_5": 0.8889,
+      "mean_latency_ms_warm": 1458.13,
+      "median_latency_ms_warm": 1205.34
+    }
+  },
+  "interpretation_note": "Recall@5=mean fraction of all verified gold chunks retrieved; MRR@5=reciprocal rank of first relevant chunk. Latency excludes initial model loading and downloads. No generated answer/citation correctness is measured in this retrieval-only experiment."
+}

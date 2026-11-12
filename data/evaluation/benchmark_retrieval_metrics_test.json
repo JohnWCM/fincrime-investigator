@@ -1,0 +1,45 @@
+{
+  "split": "test",
+  "total_questions": 3,
+  "unverified_question_ids": [],
+  "complete_annotation": true,
+  "metrics": {
+    "bm25": {
+      "predictions": 3,
+      "verified_questions_scored": 3,
+      "recall_at_5": 1.0,
+      "mrr_at_5": 0.8333,
+      "hit_at_5": 1.0,
+      "mean_latency_ms_warm": 2.46,
+      "median_latency_ms_warm": 2.53
+    },
+    "dense": {
+      "predictions": 3,
+      "verified_questions_scored": 3,
+      "recall_at_5": 0.6667,
+      "mrr_at_5": 0.3444,
+      "hit_at_5": 1.0,
+      "mean_latency_ms_warm": 467.59,
+      "median_latency_ms_warm": 34.61
+    },
+    "hybrid": {
+      "predictions": 3,
+      "verified_questions_scored": 3,
+      "recall_at_5": 0.8333,
+      "mrr_at_5": 1.0,
+      "hit_at_5": 1.0,
+      "mean_latency_ms_warm": 32.52,
+      "median_latency_ms_warm": 34.24
+    },
+    "rerank": {
+      "predictions": 3,
+      "verified_questions_scored": 3,
+      "recall_at_5": 0.8333,
+      "mrr_at_5": 1.0,
+      "hit_at_5": 1.0,
+      "mean_latency_ms_warm": 760.41,
+      "median_latency_ms_warm": 795.79
+    }
+  },
+  "interpretation_note": "Recall@5=mean fraction of all verified gold chunks retrieved; MRR@5=reciprocal rank of first relevant chunk. Latency excludes initial model loading and downloads. No generated answer/citation correctness is measured in this retrieval-only experiment."
+}

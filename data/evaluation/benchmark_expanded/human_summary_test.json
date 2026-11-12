@@ -1,0 +1,33 @@
+{
+  "split": "test",
+  "total_scoring_rows": 16,
+  "per_arm": {
+    "tools_only": {
+      "answers_in_sheet": 8,
+      "factual_correct_0_1": {
+        "n": 8,
+        "mean": 1
+      },
+      "evidence_faithful_0_1": {
+        "n": 0,
+        "mean": null
+      },
+      "mean_latency_seconds": 5.883,
+      "statistics_tool_used": "8/8"
+    },
+    "agentic_rag": {
+      "answers_in_sheet": 8,
+      "factual_correct_0_1": {
+        "n": 8,
+        "mean": 1
+      },
+      "evidence_faithful_0_1": {
+        "n": 0,
+        "mean": null
+      },
+      "mean_latency_seconds": 3.758,
+      "statistics_tool_used": "8/8"
+    }
+  },
+  "note": "Manually graded account-disjoint benchmark; not ML/TF classification precision or recall."
+}

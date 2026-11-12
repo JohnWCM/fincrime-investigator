@@ -1,0 +1,4 @@
+-r requirements.txt
+langgraph>=1,<2
+langchain-core>=1,<2
+langchain-openai>=1,<2
