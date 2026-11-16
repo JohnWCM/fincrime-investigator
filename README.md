@@ -170,6 +170,42 @@ Eight additional accounts were checked for complete direct transaction histories
 
 Saved local metrics are read by Streamlit's **Benchmark Lab**. The initial exploratory 39-response QA study has different task coverage across architectures and should not be treated as a matched-head-to-head accuracy ranking.
 
+## Fresh-clone demo: one reproducible setup
+
+A fresh clone contains **no original IBM transaction rows** and intentionally does not
+commit generated Parquet data, API credentials, FATF PDFs, or model caches. To run the
+**complete application against a small, locally generated fictional demo** on Windows:
+
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements-agent.txt
+python -m scripts.bootstrap_demo
+python -m scripts.verify_reproduction --strict-rag
+python -m pytest -q
+python -m streamlit run app/streamlit_app.py
+```
+
+The bootstrap script generates a deterministic, **non-IBM** dataset under
+`data/demo/` using the repository's existing CSV-to-Parquet ingestion code,
+and downloads the three publicly available FATF PDFs, extracts page chunks and
+builds the embedding index. **Internet access is required** for the FATF PDFs,
+Python packages and embedding model. If a FATF download fails, follow the
+instructions in [the fresh-clone guide](docs/FRESH_CLONE.md), obtain the PDF
+from its official publication page and rerun the command. The agent additionally
+requires an API key and an enabled model; deterministic features do not.
+
+The Streamlit app now automatically selects the first matching prepared dataset:
+IBM two-hop, IBM expanded, IBM baseline, then the generated demo. To force the
+sample dataset in PowerShell, run `$env:FINCRIME_DATASET = "demo"` before launching
+Streamlit. No source-code path edits are necessary.
+
+**Important:** Stored retrieval and SQL benchmark results refer to the original
+IBM/FATF evaluation runs. They do **not** measure the synthetic quick-start
+fixture. Exact reproduction of the published IBM figures additionally requires
+the original `HI-Small_Trans.csv` and the evaluation procedures below.
+
 ## Run locally
 
 The app is designed to run locally with a separately downloaded synthetic dataset and a local `.env` file. These setup steps are for **Windows PowerShell** from the repository root.
@@ -244,12 +280,7 @@ The agent code reads `OPENAI_MODEL` (falling back to its configured default). Th
 
 ### 5. Select the dataset and launch Streamlit
 
-The working application can use the selected baseline, expanded or two-hop dataset. In `app/streamlit_app.py`, make `SUBSET` and `MANIFEST` point to matching files. For the two-hop demonstration:
-
-```python
-SUBSET = ROOT / "data/processed/investigation_subset_2hop_demo.parquet"
-MANIFEST = ROOT / "data/processed/subset_manifest_2hop_demo.json"
-```
+Dataset selection is automatic. To select an IBM dataset explicitly, set `$env:FINCRIME_DATASET = "twohop"` (or `expanded`, `ibm`, `demo`) before running Streamlit. Never edit paths in application source code.
 
 Launch:
 

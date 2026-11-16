@@ -1,0 +1,29 @@
+name: Fresh clone reproducibility
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  demo-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install app dependencies
+        run: python -m pip install -r requirements-agent.txt
+      - name: Generate fictional demo without downloading FATF PDFs
+        run: python -m scripts.bootstrap_demo --skip-fatf
+      - name: Verify database, account intelligence, alerts, and two-hop graph
+        run: python -m scripts.verify_reproduction
+      - name: Run automated tests
+        run: python -m pytest -q
+      - name: Verify installed dependencies
+        run: python -m pip check

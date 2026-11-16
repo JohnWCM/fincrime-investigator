@@ -42,3 +42,6 @@ __pycache__/
 *.py.bak
 *_before_upgrade.py
 *.before_*.py.bak
+
+# Generated fictional quick-start dataset (never commit local data/labels)
+/data/demo/
