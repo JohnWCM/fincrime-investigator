@@ -1,14 +1,22 @@
-name: Fresh clone reproducibility
+name: Fresh clone reproducibility (offline smoke)
 
 on:
   push:
     branches: [main]
   pull_request:
 
+# This is intentionally an OFFLINE FATF smoke test.
+# Public FATF PDF URLs may return HTTP 403 to automated clients.
+# Full FATF/RAG verification is a documented manual step in docs/FRESH_CLONE.md.
+permissions:
+  contents: read
+
 jobs:
   demo-smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
+    env:
+      FINCRIME_DATASET: demo
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,7 +31,12 @@ jobs:
         run: python -m scripts.bootstrap_demo --skip-fatf
       - name: Verify database, account intelligence, alerts, and two-hop graph
         run: python -m scripts.verify_reproduction
-      - name: Run automated tests
+      - name: Run automated tests and Streamlit smoke
         run: python -m pytest -q
       - name: Verify installed dependencies
         run: python -m pip check
+      - name: Publish scope of CI validation
+        run: |
+          echo "Offline synthetic-data checks passed."
+          echo "FATF PDF download and dense retrieval are intentionally not tested in CI."
+          echo "See docs/FRESH_CLONE.md for manual 403 recovery and strict RAG verification."
