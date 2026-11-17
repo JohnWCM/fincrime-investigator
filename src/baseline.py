@@ -36,11 +36,11 @@ def investigate(account_id: str, tools: FinancialTools) -> dict:
         'priority': priority,
         'priority_rule': 'review: >=2 distinct heuristic pattern types; monitor: 1; routine: 0',
         'limitations': [
-            'IBM data are synthetic; labels are withheld from this investigator.',
+            'Transactions are synthetic (IBM AMLworld or locally generated fixture); labels are withheld from this investigator.',
             'Patterns are heuristic indicators, not proof of a crime.',
             'Daily fan-in/fan-out thresholds are arbitrary working assumptions.',
             'Close-in-time, same-currency transfers do not prove a flow of identical funds.',
-            'Subset excludes edges outside selected induced networks.',
+            'This analysis is limited to the selected prepared dataset; transactions outside it may be missing.',
         ],
         'recommended_next_steps': [
             'Review the cited transactions, counterparties and dates.',

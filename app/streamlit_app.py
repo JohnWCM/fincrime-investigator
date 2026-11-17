@@ -21,6 +21,8 @@ import plotly.express as px
 import streamlit as st
 
 from app.account_intelligence import account_intelligence_view
+from app.data_config import resolve_data_paths, is_generated_demo
+from app.presentation_mode import render_presentation_mode
 from app.ui_helpers import (DISPLAY_NAMES, RETRIEVERS, as_download, benchmark_figures,
                             json_at, jsonl_at, network_figure, patterns_summary,
                             retrieval_table, scores_at, target_scores)
@@ -28,8 +30,8 @@ from src.baseline import investigate
 from src.functions import FinancialTools
 from src.graph import summarize_network
 
-SUBSET = ROOT / "data/processed/investigation_subset_2hop_demo.parquet"
-MANIFEST = ROOT / "data/processed/subset_manifest_2hop_demo.json"
+SUBSET, MANIFEST = resolve_data_paths(ROOT)
+
 CORPUS = ROOT / "data/processed/fatf_chunks.jsonl"
 EVAL = ROOT / "data/evaluation"
 
@@ -59,12 +61,15 @@ def read_fatf_chunks() -> list[dict]:
 
 def requirement_guard() -> None:
     if not SUBSET.exists() or not MANIFEST.exists():
-        st.error("Investigation data is missing. Run `python -m src.ingest` and `python -m src.prepare_data` in the project root.")
+        st.error("Investigation data is missing. For a new clone run `python -m scripts.bootstrap_demo` in the project root. For IBM data, see docs/FRESH_CLONE.md.")
         st.stop()
 
 
 def caption_note() -> None:
-    st.caption("Synthetic IBM AML transactions · Read-only analysis · Heuristics are not a determination of criminal conduct · No case labels exposed")
+    if is_generated_demo(SUBSET):
+        st.info("GENERATED DEMO DATASET: fictional example only, not IBM AMLworld. "
+                "The published benchmark scores and IBM case examples do not describe these records.")
+    st.caption(("Generated fictional demo" if is_generated_demo(SUBSET) else "Synthetic IBM AML transactions") + " · Read-only analysis · Heuristics are not a determination of criminal conduct · No case labels exposed")
 
 
 def report_metrics(report: dict) -> None:
@@ -340,6 +345,9 @@ def dashboard(manifest: dict) -> None:
 
 
 def benchmark_lab() -> None:
+    if is_generated_demo(SUBSET):
+        st.info("Saved benchmark summaries were produced on IBM AMLworld and FATF "
+                "evaluation questions; they have not been rerun on this generated demo dataset.")
     st.subheader("Benchmark lab")
     st.write("Development and held-out metrics from saved benchmark artifacts. Opening this view does not rerun models.")
     ret_dev = json_at(EVAL / "benchmark_retrieval_metrics_dev.json")
@@ -400,18 +408,19 @@ def benchmark_lab() -> None:
 with st.sidebar:
     st.markdown("### 🔎 FinCrime Investigator")
     st.caption("AML evidence + bounded agent")
-    view = st.radio("Workspace", ["Investigation", "Account Intelligence", "Network", "FATF Evidence", "Dashboard", "Benchmark Lab"])
+    view = st.radio("Workspace", ['Presentation Mode', 'Investigation', 'Account Intelligence', 'Network', 'FATF Evidence', 'Dashboard', 'Benchmark Lab'], key="workspace_view")
     st.divider()
     manifest = read_manifest()
     cases = [c.get("account_id") for c in manifest.get("cases", []) if c.get("account_id")]
-    account = st.selectbox("Case account", cases, disabled=not cases) if cases else None
+    account = st.selectbox("Case account", cases, disabled=not cases, key="case_account") if cases else None
     st.divider()
     st.caption("**Model access:** " + ("API key configured" if os.getenv("OPENAI_API_KEY") else "uses local .env when an agent runs"))
     st.caption("**Financial data:** " + ("ready" if SUBSET.exists() else "missing"))
     st.caption("**FATF corpus:** " + ("ready" if CORPUS.exists() else "missing"))
 
-st.title("FinCrime Investigator")
-caption_note()
+if view != "Presentation Mode":
+    st.title("FinCrime Investigator")
+    caption_note()
 
 if view in ("Investigation", "Network", "Dashboard", "FATF Evidence"):
     requirement_guard()
@@ -419,7 +428,9 @@ if view in ("Investigation", "Network", "FATF Evidence") and not account:
     st.warning("No public demo accounts in subset_manifest.json. Run dataset preparation.")
     st.stop()
 
-if view == "Investigation":
+if view == "Presentation Mode":
+    render_presentation_mode(ROOT, cases)
+elif view == "Investigation":
     investigation_workspace(account)
 elif view == "Account Intelligence":
     if not account:
